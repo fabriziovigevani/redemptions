@@ -36,7 +36,7 @@ jobs:
           key: redemptions-{{ checksum "package.json" }}
 
       - run:
-        name: 'Run tests'
+        name: Run tests
         command: npm run ganache-cli:test
 
 workflows:
