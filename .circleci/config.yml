@@ -26,15 +26,18 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - redemptions-
 
-      - run: npm install
+      - run:
+          name: Install dependencies
+          command: npm install
 
       - save_cache:
           paths:
             - node_modules
           key: redemptions-{{ checksum "package.json" }}
 
-      # run tests!
-      - run: npm run ganache-cli:test
+      - run:
+        name: 'Run tests'
+        command: npm run ganache-cli:test
 
 workflows:
   version: 2

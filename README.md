@@ -1,5 +1,7 @@
 # Redemptions <img align="right" src="https://github.com/1Hive/website/blob/master/website/static/img/bee.png" height="80px" />
 
+[![CircleCI](https://circleci.com/gh/fabriziovigevani/redemptions.svg?style=svg)](https://circleci.com/gh/fabriziovigevani/redemptions)
+
 1Hive's Redemptions app allows Aragon organizations to grant their token holders the right to redeem tokens in exchange for a proportional share of the organizations treasury assets.
 
 #### 🐲 Project stage: Rinkeby
