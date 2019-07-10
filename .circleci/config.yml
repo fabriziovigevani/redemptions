@@ -22,23 +22,22 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - redemptions-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - redemptions-
 
       - run: npm install
 
       - save_cache:
           paths:
             - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-  test:
-    steps:
+          key: redemptions-{{ checksum "package.json" }}
+
       # run tests!
       - run: npm run ganache-cli:test
+
 workflows:
   version: 2
   build_and_test:
     jobs:
       - build
-      - test
