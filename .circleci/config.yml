@@ -40,12 +40,8 @@ jobs:
           command: npm run ganache-cli:test
 
       - run:
-          name: Set environment variables
-          command: cross-env COVERALLS_REPO_TOKEN=8HbPIypKHfgj6rM86kpwJDQrlbLEvqvOl
-
-      - run:
           name: Report Coverage
-          Command: npm run coveralls
+          Command: cross-env COVERALLS_REPO_TOKEN=8HbPIypKHfgj6rM86kpwJDQrlbLEvqvOl npm run coveralls
 
 workflows:
   version: 2
