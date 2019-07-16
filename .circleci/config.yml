@@ -24,7 +24,7 @@ jobs:
           keys:
             - redemptionv1-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - redemptionv1-
+            # - redemptionv1-
 
       - run:
           name: Install dependencies
