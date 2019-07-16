@@ -37,7 +37,15 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm run ganache-cli:test
+          command: npm run coverage
+
+      - run:
+          name: Set environment variables
+          command: export COVERALLS_REPO_TOKEN=8HbPIypKHfgj6rM86kpwJDQrlbLEvqvOl
+
+      - run:
+          name: Report Coverage
+          Command: cat ./coverage/lcov.info | npx coveralls
 
 workflows:
   version: 2
