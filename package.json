@@ -12,7 +12,7 @@
     "openzeppelin-solidity": "2.0.1"
   },
   "devDependencies": {
-    "@aragon/cli": "^5.9.3",
+    "@aragon/cli": "5.9.3",
     "@aragon/test-helpers": "^1.0.1",
     "babel-eslint": "^10.0.1",
     "babel-polyfill": "^6.26.0",
@@ -34,7 +34,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "ethlint": "^1.2.3",
     "prettier": "^1.17.1",
-    "solidity-coverage": "^0.5.11"
+    "solidity-coverage": "^0.5.11",
+    "truffle": "^5.0.1"
   },
   "scripts": {
     "start": "aragon run",
@@ -43,7 +44,7 @@
     "start:http:template": "npm run start:http -- --template Template --template-init @ARAGON_ENS",
     "prepare": "cd app && npm install && cd ..",
     "start:app": "cd app && npm start && cd ..",
-    "test": "cross-env TRUFFLE_TEST=true npm run ganache-cli:test",
+    "test": "npx cross-env TRUFFLE_TEST=true npm run ganache-cli:test",
     "compile": "aragon contracts compile",
     "build": "cd app && npm run build && cd ..",
     "publish:patch": "aragon apm publish patch",
@@ -52,7 +53,8 @@
     "versions": "aragon apm versions",
     "lint": "eslint . & solium --dir ./contracts",
     "lint:fix": "eslint . --fix & solium --dir ./contracts --fix",
-    "coverage": "cross-env SOLIDITY_COVERAGE=true npm run ganache-cli:test",
+    "coverage": "npx cross-env SOLIDITY_COVERAGE=true npm run ganache-cli:test",
+    "coveralls": "cat ./coverage/lcov.info | npx coveralls",
     "ganache-cli:test": "sh ./node_modules/@aragon/test-helpers/ganache-cli.sh",
     "deploy-tokens": "npx truffle exec ./scripts/deploy-tokens.js"
   }
