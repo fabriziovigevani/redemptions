@@ -22,7 +22,7 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - redemptionv2-{{ checksum "package.json" }}
+            - redemptionv3-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
             # - redemptionv1-
 
@@ -33,11 +33,11 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: redemptionv2-{{ checksum "package.json" }}
+          key: redemptionv3-{{ checksum "package.json" }}
 
       - run:
           name: Run tests
-          command: npm run coverage
+          command: npm run ganache-cli:test
 
       - run:
           name: Set environment variables
