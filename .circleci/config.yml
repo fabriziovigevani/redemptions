@@ -37,11 +37,11 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm run ganache-cli:test
+          command: npm run coverage
 
       - run:
           name: Report Coverage
-          Command: npx cross-env COVERALLS_REPO_TOKEN=8HbPIypKHfgj6rM86kpwJDQrlbLEvqvOl npm run coveralls
+          Command: npm run coveralls
 
 workflows:
   version: 2
