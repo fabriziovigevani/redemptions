@@ -22,9 +22,9 @@ jobs:
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - redemption-{{ checksum "package.json" }}
+            - redemptionv1-{{ checksum "package.json" }}
             # fallback to using the latest cache if no exact match is found
-            - redemption-
+            - redemptionv1-
 
       - run:
           name: Install dependencies
@@ -33,7 +33,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: redemption-{{ checksum "package.json" }}
+          key: redemptionv1-{{ checksum "package.json" }}
 
       - run:
           name: Run tests
