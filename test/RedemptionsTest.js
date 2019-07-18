@@ -278,7 +278,7 @@ contract('Redemptions', ([rootAccount, redeemer, ...accounts]) => {
           })
 
           const NOW = getSeconds()
-          const start = NOW 
+          const start = NOW
           const cliff = start + 2
           const vesting = start + 4
 
@@ -315,11 +315,12 @@ contract('Redemptions', ([rootAccount, redeemer, ...accounts]) => {
         })
 
         it('should redeem partial amount of vested tokens after cliff', async () => {
-          const timeout = TIME_TO_CLIFF 
+          const timeout = TIME_TO_CLIFF
 
           const amountToRedeem = redeemerAmount + 1
           const redeem = new Promise((resolve, reject) => {
             setTimeout(async () => {
+              console.log('Balance before redemption', (await tokenManager.spendableBalanceOf(redeemer)).toNumber())
               await redemptions.redeem(amountToRedeem, CORRECTMSG, ...correctValues, {
                 from: redeemer,
               })
@@ -327,7 +328,9 @@ contract('Redemptions', ([rootAccount, redeemer, ...accounts]) => {
             }, timeout * 1000)
           })
 
+          console.log('before redeeming')
           await redeem
+          console.log('after redeeming')
 
           const redeemerBalance = await tokenManager.spendableBalanceOf(redeemer)
           assert(redeemerBalance < amountToRedeem)
