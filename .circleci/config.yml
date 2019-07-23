@@ -5,9 +5,7 @@
 version: 2
 
 references:
-
-  node_modules_key: &node_modules_key
-    redemptions-dependencies-{{ checksum "package.json" }}
+  node_modules_key: &node_modules_key redemptions-dependencies-{{ checksum "package.json" }}
 
   restore_node_modules: &restore_node_modules
     restore_cache:
@@ -15,11 +13,6 @@ references:
         - *node_modules_key
         # fallback to using the latest cache if no exact match is found
         # - redemptions-
-
-
-          
-
-
 jobs:
   build:
     docker:
@@ -60,7 +53,7 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      -checkout 
+      - checkout
 
       - *restore_node_modules
 
