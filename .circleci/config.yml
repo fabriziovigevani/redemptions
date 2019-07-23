@@ -32,6 +32,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
+            - app/node_modules
           key: *node_modules_key
 
   coverage:
