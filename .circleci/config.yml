@@ -25,9 +25,7 @@ jobs:
 
       - run:
           name: Install dependencies
-          command: |
-            sudo apt install rsync
-            npm install
+          command: npm install
 
       - save_cache:
           paths:
@@ -66,6 +64,8 @@ jobs:
       - checkout
 
       - *restore_node_modules
+
+      - run: sudo apt install rsync
 
       - run:
           name: Visual Tests
