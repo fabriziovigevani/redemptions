@@ -20,22 +20,22 @@ jobs:
       - checkout
 
       # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - redemptions-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            # - redemptions-
+      # - restore_cache:
+      #     keys:
+      #       - redemptions-dependencies-{{ checksum "package.json" }}
+      #       # fallback to using the latest cache if no exact match is found
+      #       # - redemptions-
 
       - run:
           name: Install dependencies
-          command: npm install
+          command: |
+            sudo apt install rsync
+            npm install
 
       - save_cache:
           paths:
             - node_modules
           key: redemptions-dependencies-{{ checksum "package.json" }}
-
-      - run: sudo apt install rsync
 
       - run:
           name: Run tests
@@ -45,9 +45,9 @@ jobs:
           name: Report Coverage
           Command: npm run coveralls
 
-      - run:
-          name: Visual Tests
-          command: npm run test:e2e
+      # - run:
+      #     name: Visual Tests
+      #     command: npm run test:e2e
 
 workflows:
   version: 2
