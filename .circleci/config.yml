@@ -20,6 +20,11 @@ jobs:
       - checkout
 
       # Download and cache dependencies
+      - restore_cache:
+          keys:
+            - redemptions-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            # - redemptions-
 
       - run:
           name: Install dependencies
@@ -31,7 +36,7 @@ jobs:
           key: redemptions-dependencies-{{ checksum "package.json" }}
 
       - run: sudo apt install rsync
-      
+
       - run:
           name: Run tests
           command: npm run coverage
@@ -39,7 +44,7 @@ jobs:
       - run:
           name: Report Coverage
           Command: npm run coveralls
-      
+
       - run:
           name: Visual Tests
           command: npm run test:e2e
@@ -49,3 +54,5 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - test:
+        requires: build
