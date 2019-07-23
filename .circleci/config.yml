@@ -36,6 +36,20 @@ jobs:
           paths:
             - node_modules
           key: redemptions-dependencies-{{ checksum "package.json" }}
+  
+  test:
+     docker:
+      # specify the version you desire here
+      - image: circleci/node:8.15.1
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/mongo:3.4.4
+
+    working_directory: ~/repo
+
+    steps: 
 
       - run:
           name: Run tests
@@ -44,6 +58,7 @@ jobs:
       - run:
           name: Report Coverage
           Command: npm run coveralls
+
 
       # - run:
       #     name: Visual Tests
@@ -54,5 +69,5 @@ workflows:
   build_and_test:
     jobs:
       - build
-      # - test:
-      #   requires: build
+      - test:
+        requires: build
