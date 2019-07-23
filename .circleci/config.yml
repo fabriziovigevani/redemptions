@@ -1,79 +1,25 @@
-# Javascript Node CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-javascript/ for more details
-#
-version: 2
-jobs:
-  build:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:lts-browsers
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-
-      # Download and cache dependencies
-
-      - run:
-          name: Install dependencies
-          command: npm install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: redemptions-dependencies-{{ checksum "package.json" }}
-
-      - run: sudo apt install rsync
-
-      - run:
-          name: Run tests
-          command: npm run coverage
-
-      - run:
-          name: Report Coverage
-          Command: npm run coveralls
-
-      - run:
-          name: Visual Tests
-          command: npm run test:e2e
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
-##################### NUEVO##################
-## Javascript Node CircleCI 2.1 configuration file
+# # Javascript Node CircleCI 2.0 configuration file
 # #
 # # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 # #
-# version: 2.1
-
-# references:
-#   node_modules_key: &node_modules_key redemptions-dependencies-{{ checksum "package.json" }}-{{ checksum "app/package.json" }}
-
-#   restore_node_modules: &restore_node_modules
-#     restore_cache:
-#       keys:
-#         - *node_modules_key
-
+# version: 2
 # jobs:
 #   build:
 #     docker:
 #       # specify the version you desire here
 #       - image: circleci/node:lts-browsers
 
+#       # Specify service dependencies here if necessary
+#       # CircleCI maintains a library of pre-built images
+#       # documented at https://circleci.com/docs/2.0/circleci-images/
+#       # - image: circleci/mongo:3.4.4
+
 #     working_directory: ~/repo
 
 #     steps:
 #       - checkout
+
+#       # Download and cache dependencies
 
 #       - run:
 #           name: Install dependencies
@@ -82,20 +28,9 @@ workflows:
 #       - save_cache:
 #           paths:
 #             - node_modules
-#             - app/node_modules
-#           key: *node_modules_key
+#           key: redemptions-dependencies-{{ checksum "package.json" }}
 
-#   coverage:
-#     docker:
-#       # specify the version you desire here
-#       - image: circleci/node:lts-browsers
-
-#     working_directory: ~/repo
-
-#     steps:
-#       - checkout
-
-#       - *restore_node_modules
+#       - run: sudo apt install rsync
 
 #       - run:
 #           name: Run tests
@@ -103,21 +38,7 @@ workflows:
 
 #       - run:
 #           name: Report Coverage
-#           command: npm run coveralls
-
-#   e2e-test:
-#     docker:
-#       # specify the version you desire here
-#       - image: circleci/node:lts-browsers
-
-#     working_directory: ~/repo
-
-#     steps:
-#       - checkout
-
-#       - *restore_node_modules
-
-#       - run: sudo apt install rsync
+#           Command: npm run coveralls
 
 #       - run:
 #           name: Visual Tests
@@ -128,9 +49,88 @@ workflows:
 #   build_and_test:
 #     jobs:
 #       - build
-#       - coverage:
-#           requires:
-#             - build
-#       - e2e-test:
-#           requires:
-#             - build
+##################### NUEVO##################
+# Javascript Node CircleCI 2.1 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2.1
+
+references:
+  node_modules_key: &node_modules_key redemptions-dependencies-{{ checksum "package.json" }}-{{ checksum "app/package.json" }}
+
+  restore_node_modules: &restore_node_modules
+    restore_cache:
+      keys:
+        - *node_modules_key
+
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:lts-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+            - app/node_modules
+          key: *node_modules_key
+
+  coverage:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:lts-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - *restore_node_modules
+
+      - run:
+          name: Run tests
+          command: npm run coverage
+
+      - run:
+          name: Report Coverage
+          command: npm run coveralls
+
+  e2e-test:
+    docker:
+      # specify the version you desire here
+      - image: circleci/node:lts-browsers
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - *restore_node_modules
+
+      - run: sudo apt install rsync
+
+      - run:
+          name: Visual Tests
+          command: npm run test:e2e
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - coverage:
+          requires:
+            - build
+      - e2e-test:
+          requires:
+            - build
