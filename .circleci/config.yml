@@ -67,8 +67,8 @@ jobs:
       - *restore_node_modules
 
       - run:
-        name: Visual Tests
-        command: npm run test:e2e
+          name: Visual Tests
+          command: npm run test:e2e
 
 workflows:
   version: 2
