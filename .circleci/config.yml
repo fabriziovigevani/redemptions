@@ -6,6 +6,9 @@ version: 2
 
 references:
 
+  node_modules_key: &node_modules_key
+    redemptions-dependencies-{{ checksum "package.json" }}
+
   restore_node_modules: &restore_node_modules
     restore_cache:
       keys:
@@ -13,8 +16,7 @@ references:
         # fallback to using the latest cache if no exact match is found
         # - redemptions-
 
-  node_modules_key: &node_modules_key
-    redemptions-dependencies-{{ checksum "package.json" }}
+
           
 
 
